@@ -13,9 +13,11 @@ public class ConnectDb implements Closeable {
     private final String URL = "jdbc:postgresql://localhost:5432/JavaIntensivDb";
     private final String USER = "postgres";
     private final String PASSWORD = "556677";
-    private final Connection connection;
+    private Connection connection;
 
-    public ConnectDb() {
+
+
+    public Connection getConnection() {
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -25,9 +27,6 @@ public class ConnectDb implements Closeable {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public Connection getConnection() {
         return connection;
     }
 

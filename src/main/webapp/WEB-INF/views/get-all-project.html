@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Project</title>
+</head>
+<center>
+    <body>
+    <table>
+        <tr>
+            <th>Project Name</th>
+            <th>Project Client</th>
+        </tr>
+        <tr th:each="project: ${projects}">
+            <td th:text="${project.getNameProject()}"></td>
+            <td th:text="${project.getProjectClient()}"></td>
+            <td>
+                <form th:action="@{/project/update/{id}(id=${project.id})}" method="get">
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/project/delete/{id}(id=${project.id})}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <p>
+    <form th:action="@{/project/create}" method="get">
+        <button type="submit">Create Project</button>
+    </form>
+    </p>
+    </body>
+</center>
+</html>

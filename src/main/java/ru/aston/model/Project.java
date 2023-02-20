@@ -7,19 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Worker {
+@AllArgsConstructor
+public class Project {
 
     private Integer id;
 
-    private String firstName;
+    private String nameProject;
 
-    private String lastName;
-
-    private String email;
-
-    private String department;
-
-    private String role;
+    private String projectClient;
 }
