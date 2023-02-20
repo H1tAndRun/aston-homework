@@ -11,11 +11,13 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
+
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"ru.aston.configuration","ru.aston.dao","ru.aston.controller"})
+@ComponentScan("ru.aston")
 public class WebConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
+
 
     public WebConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
