@@ -1,4 +1,4 @@
-package ru.aston.configuraton;
+package ru.aston.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

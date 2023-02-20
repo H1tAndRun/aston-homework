@@ -1,4 +1,4 @@
-package ru.aston.configuraton;
+package ru.aston.configuration;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("ru.aston")
+@ComponentScan(basePackages = {"ru.aston.configuration","ru.aston.dao","ru.aston.controller"})
 public class WebConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
 
