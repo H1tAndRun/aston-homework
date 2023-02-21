@@ -54,4 +54,16 @@ public class ProjectController {
         projectService.deleteProject(id);
         return "redirect:/project";
     }
+
+    @GetMapping("/project/worker")
+    public String GetProjectsWithOfWorkers(Model model){
+        model.addAttribute("projects",projectService.getProjectsWithOfWorkers());
+        return "get-projects-workers";
+    }
+
+    @PostMapping("/project/worker/delete/{id}")
+    public String deleteProjectWorker(@PathVariable int id) {
+        projectService.deleteProjectWorker(id);
+        return "redirect:/project/worker";
+    }
 }

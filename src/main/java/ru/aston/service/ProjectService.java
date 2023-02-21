@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.aston.dao.ProjectDao;
 import ru.aston.model.Department;
 import ru.aston.model.Project;
+import ru.aston.model.ProjectWorker;
 
 import java.util.List;
 
@@ -34,5 +35,13 @@ public class ProjectService {
 
     public void deleteProject(int id) {
         projectDao.deleteProject(id);
+    }
+
+    public List<ProjectWorker> getProjectsWithOfWorkers() {
+        return projectDao.getProjectsWithOfWorkers();
+    }
+
+    public void deleteProjectWorker(int id){
+        projectDao.deleteProjectWorker(id);
     }
 }

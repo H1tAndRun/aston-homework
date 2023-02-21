@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.aston.configuration.ConnectDb;
 import ru.aston.model.Department;
 import ru.aston.model.Project;
+import ru.aston.model.ProjectWorker;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public class ProjectDao {
 
     public void deleteProject(int id) {
         String deleteProjectsSql = "DELETE FROM projects WHERE id = ?";
-        String deleteProjectsWorkerSql = "DELETE FROM projects_workers WHERE worker_id = ?";
+        String deleteProjectsWorkerSql = "DELETE FROM projects_workers WHERE project_id = ?";
         try (Connection connection = connectDb.getConnection()) {
             connection.setAutoCommit(false);
             try (PreparedStatement deleteProjectsStmt = connection.prepareStatement(deleteProjectsSql);
@@ -101,6 +102,43 @@ public class ProjectDao {
             }
         } catch (SQLException e) {
 
+        }
+    }
+
+    public List<ProjectWorker> getProjectsWithOfWorkers() {
+        List<ProjectWorker> projects = new ArrayList<>();
+        String sql = "select pw.id,first_name,last_name,name_project,role_name" +
+                " from workers w join projects_workers pw on w.id = pw.worker_id " +
+                "join projects p on pw.project_id = p.id " +
+                "join roles r on w.role_id  = r.id ;\n";
+        try (Connection connection = connectDb.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+            while (resultSet.next()) {
+                projects.add(ProjectWorker.builder()
+                        .id(resultSet.getInt("id"))
+                        .projectName(resultSet.getString("name_project"))
+                        .workerName(resultSet.getString("first_name"))
+                        .workerLastName(resultSet.getString("last_name"))
+                        .workerRole(resultSet.getString("role_name"))
+                        .build());
+            }
+            System.out.println(projects);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return projects;
+    }
+
+    public void deleteProjectWorker(int id) {
+        String deleteProjectsSql = "DELETE FROM projects_workers WHERE id = ?";
+        try (Connection connection = connectDb.getConnection();
+             PreparedStatement deleteProject = connection.prepareStatement(deleteProjectsSql)) {
+            deleteProject.setInt(1, id);
+            deleteProject.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
